@@ -6,6 +6,8 @@
   <title>MAICHAT</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  <!-- Highlight.js for code syntax -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css"/>
 </head>
 <body>
   <div class="app">
@@ -19,28 +21,23 @@
       <button id="new-chat" class="new-chat-btn">
         <i class="fa-solid fa-plus"></i> New Chat
       </button>
-      
-      <div class="chat-history" id="chat-history">
-        <!-- Previous chats will appear here -->
-      </div>
-      
+
+      <div class="chat-history" id="chat-history"></div>
+
       <div class="sidebar-bottom">
-        <button id="settings-btn">
-          <i class="fa-solid fa-gear"></i> Settings
-        </button>
+        <button id="clear-all">Clear All Chats</button>
+        <button id="settings-btn"><i class="fa-solid fa-gear"></i> Settings</button>
       </div>
     </div>
 
-    <!-- Main Chat Area -->
+    <!-- Main Chat -->
     <div class="main">
       <header>
         <h1>MAICHAT</h1>
-        <div class="model-info">Intelligent AI Assistant</div>
+        <div class="model-info">Powered by Advanced AI • Lagos</div>
       </header>
 
-      <div id="chat-container" class="chat-container">
-        <!-- Messages will be added here -->
-      </div>
+      <div id="chat-container" class="chat-container"></div>
 
       <div class="input-area">
         <div class="input-wrapper">
@@ -53,6 +50,12 @@
       </div>
     </div>
   </div>
+
+  <!-- Markdown + Highlight + KaTeX -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"/>
 
   <script src="script.js"></script>
 </body>
