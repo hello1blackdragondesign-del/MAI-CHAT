@@ -10,11 +10,21 @@
 </head>
 <body>
   <div class="app">
+    <!-- Hamburger Button -->
+    <button id="hamburger" class="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
     <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="logo">
-        <i class="fa-solid fa-brain"></i>
-        <span>MAICHAT</span>
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <i class="fa-solid fa-brain"></i>
+          <span>MAICHAT</span>
+        </div>
+        <button id="close-sidebar" class="close-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
       
       <button id="new-chat" class="new-chat-btn">
@@ -27,7 +37,7 @@
         <button id="export-chat"><i class="fa-solid fa-download"></i> Export Chat</button>
         <button id="clear-all"><i class="fa-solid fa-trash"></i> Clear All</button>
         <button id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
-        <button id="settings-btn"><i class="fa-solid fa-gear"></i></button>
+        <button id="settings-btn"><i class="fa-solid fa-gear"></i> Settings</button>
       </div>
     </div>
 
@@ -47,7 +57,6 @@
 
       <div id="chat-container" class="chat-container"></div>
 
-      <!-- Suggested Prompts -->
       <div id="suggested-prompts" class="suggested-prompts"></div>
 
       <div class="input-area">
@@ -66,6 +75,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Mobile Overlay -->
+  <div id="overlay" class="overlay"></div>
 
   <!-- Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
