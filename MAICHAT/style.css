@@ -21,27 +21,19 @@ body {
 
 .app { display: flex; height: 100vh; position: relative; }
 
-/* Hamburger - Fixed positioning with proper spacing */
-.hamburger, .mobile-hamburger {
-  background: none;
-  border: none;
-  color: var(--text);
-  font-size: 28px;
-  cursor: pointer;
-  padding: 12px;
-  z-index: 1000;
-}
-
+/* Hamburger - Properly spaced */
 .hamburger {
   position: absolute;
-  top: 16px;
+  top: 18px;
   left: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000;
   display: none;
-}
-
-.mobile-hamburger {
-  display: none;
-  margin-right: 12px;
 }
 
 /* Sidebar */
@@ -64,7 +56,7 @@ body {
 }
 
 .logo {
-  font-size: 29px;
+  font-size: 28px;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -83,11 +75,6 @@ body {
   margin-bottom: 24px;
 }
 
-.new-chat-btn:hover {
-  border-color: var(--accent);
-  background: #1a1a1a;
-}
-
 .chat-history {
   flex: 1;
   overflow-y: auto;
@@ -104,11 +91,9 @@ body {
   background: #222;
 }
 
-/* Mobile Responsiveness */
+/* Mobile */
 @media (max-width: 992px) {
-  .hamburger, .mobile-hamburger {
-    display: block;
-  }
+  .hamburger { display: block; }
   
   .sidebar {
     position: fixed;
@@ -120,10 +105,6 @@ body {
   
   .sidebar.open {
     transform: translateX(0);
-  }
-  
-  .main header {
-    padding-left: 70px;
   }
 }
 
@@ -143,7 +124,7 @@ body {
   visibility: visible;
 }
 
-/* Main Area */
+/* Main Header */
 .main {
   flex: 1;
   display: flex;
@@ -153,33 +134,41 @@ body {
 header {
   padding: 16px 24px;
   border-bottom: 1px solid #222;
-  display: flex;
-  align-items: center;
-  gap: 16px;
   background: var(--bg);
 }
 
-header h1 {
-  font-size: 24px;
-  font-weight: 600;
-  flex: 1;
-}
-
-.header-right {
+.header-content {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.model-select {
+.title-group {
+  text-align: right;
+}
+
+header h1 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #aaaaaa;
+}
+
+.mode-selector select {
   background: #1f1f1f;
   color: white;
   border: none;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
   font-size: 14px;
 }
 
+/* Chat Area */
 .chat-container {
   flex: 1;
   padding: 30px 24px;
@@ -207,10 +196,9 @@ header h1 {
   align-items: center;
   justify-content: center;
   font-size: 22px;
-  flex-shrink: 0;
 }
 
-.avatar.ai { background: #222; border: 2px solid #333; }
+.avatar.ai { background: #222; }
 .avatar.user { background: var(--user-bubble); }
 
 .bubble {
@@ -220,18 +208,14 @@ header h1 {
   line-height: 1.55;
 }
 
-.ai .bubble { 
-  background: var(--surface); 
-  border-bottom-left-radius: 6px;
-}
-
+.ai .bubble { background: var(--surface); border-bottom-left-radius: 6px; }
 .user .bubble { 
   background: var(--user-bubble); 
   color: white; 
-  border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px; 
 }
 
-/* Input */
+/* Input Area */
 .input-area {
   padding: 18px 24px;
   background: var(--bg);
@@ -243,13 +227,13 @@ header h1 {
   align-items: center;
   background: #1f1f1f;
   border-radius: 9999px;
-  padding: 6px 8px;
+  padding: 6px 10px;
 }
 
 .tool-btn {
   background: none;
   border: none;
-  color: #999;
+  color: #aaa;
   font-size: 20px;
   width: 44px;
   height: 44px;
@@ -264,8 +248,8 @@ header h1 {
   border: none;
   outline: none;
   color: white;
-  font-size: 16.2px;
-  padding: 12px 8px;
+  font-size: 16px;
+  padding: 12px 10px;
   resize: none;
   max-height: 200px;
 }
@@ -278,12 +262,6 @@ header h1 {
   height: 46px;
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.2s;
-}
-
-.send-btn:hover {
-  background: #9333ea;
-  transform: scale(1.05);
 }
 
 .disclaimer {
@@ -300,4 +278,4 @@ header h1 {
 .chat-container::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 10px;
-}
+  }
