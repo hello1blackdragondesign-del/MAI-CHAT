@@ -1,6 +1,4 @@
-// Elements
 const hamburger = document.getElementById('hamburger');
-const mobileHamburger = document.getElementById('mobile-hamburger');
 const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('close-sidebar');
 const overlay = document.getElementById('overlay');
@@ -8,53 +6,49 @@ const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
 
-// Hamburger Controls
-function openSidebar() {
+// Hamburger Menu
+hamburger.addEventListener('click', () => {
   sidebar.classList.add('open');
   overlay.classList.add('active');
-}
+});
 
-function closeSidebarFunc() {
+closeSidebar.addEventListener('click', () => {
   sidebar.classList.remove('open');
   overlay.classList.remove('active');
-}
+});
 
-hamburger.addEventListener('click', openSidebar);
-mobileHamburger.addEventListener('click', openSidebar);
-closeSidebar.addEventListener('click', closeSidebarFunc);
-overlay.addEventListener('click', closeSidebarFunc);
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+});
 
-// Add Message Function
+// Add Message
 function addMessage(text, isUser) {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
-  
-  messageDiv.innerHTML = `
+  const div = document.createElement('div');
+  div.className = `message ${isUser ? 'user' : 'ai'}`;
+  div.innerHTML = `
     <div class="avatar ${isUser ? 'user' : 'ai'}">
       ${isUser ? '👤' : '🧠'}
     </div>
     <div class="bubble">${text}</div>
   `;
-  
-  chatContainer.appendChild(messageDiv);
+  chatContainer.appendChild(div);
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
 // Send Message
-async function sendMessage() {
+function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
 
   addMessage(text, true);
   userInput.value = '';
 
-  // Fake AI response
   setTimeout(() => {
     addMessage("Thank you! I'm MAICHAT, your intelligent AI companion from Lagos. How else can I help you today?", false);
-  }, 700);
+  }, 800);
 }
 
-// Event Listeners
 sendBtn.addEventListener('click', sendMessage);
 
 userInput.addEventListener('keydown', (e) => {
@@ -64,13 +58,13 @@ userInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto-resize textarea
-userInput.addEventListener('input', function() {
+// Auto resize input
+userInput.addEventListener('input', function () {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 200) + 'px';
 });
 
 // Welcome Message
 window.onload = () => {
-  addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion.<br>What would you like to explore today?", false);
+  addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion from Lagos.<br>What would you like to explore today?", false);
 };
