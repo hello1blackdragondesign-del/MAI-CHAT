@@ -1,12 +1,14 @@
+// Hamburger & Sidebar
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('close-sidebar');
 const overlay = document.getElementById('overlay');
+
+// Chat elements
 const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
 
-// Hamburger Menu
 hamburger.addEventListener('click', () => {
   sidebar.classList.add('open');
   overlay.classList.add('active');
@@ -46,7 +48,7 @@ function sendMessage() {
 
   setTimeout(() => {
     addMessage("Thank you! I'm MAICHAT, your intelligent AI companion from Lagos. How else can I help you today?", false);
-  }, 800);
+  }, 700);
 }
 
 sendBtn.addEventListener('click', sendMessage);
@@ -58,13 +60,13 @@ userInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto resize input
+// Auto resize textarea
 userInput.addEventListener('input', function () {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 200) + 'px';
 });
 
-// Welcome Message
+// Welcome message
 window.onload = () => {
   addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion from Lagos.<br>What would you like to explore today?", false);
 };
