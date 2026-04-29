@@ -274,3 +274,36 @@ window.onload = () => {
     loadChat(latest);
   }
 };
+// ============== HAMBURGER MENU ==============
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
+const closeSidebarBtn = document.getElementById('close-sidebar');
+const overlay = document.getElementById('overlay');
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  overlay.classList.add('active');
+}
+
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+}
+
+hamburger.addEventListener('click', openSidebar);
+closeSidebarBtn.addEventListener('click', closeSidebar);
+overlay.addEventListener('click', closeSidebar);
+
+// Close sidebar when selecting a chat on mobile
+document.getElementById('chat-history').addEventListener('click', (e) => {
+  if (window.innerWidth <= 992 && e.target.closest('.history-item')) {
+    setTimeout(closeSidebar, 250);
+  }
+});
+
+// Optional: Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === "Escape" && sidebar.classList.contains('open')) {
+    closeSidebar();
+  }
+});
