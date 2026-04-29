@@ -57,44 +57,44 @@ function sendMessage() {
   }, 700);
 }
 
-// Tool Button Functions
+// ================= TOOL BUTTONS =================
 
 // 1. Attach File (Paperclip)
 attachBtn.addEventListener('click', () => {
-  alert("📎 File attachment coming soon!\n\nYou can attach documents or images here.");
+  alert("📎 File attachment is not fully implemented yet.\n\nYou can attach documents or images in the full version.");
 });
 
 // 2. Voice Input (Microphone)
 voiceBtn.addEventListener('click', () => {
   if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-    alert("Voice input is not supported in your current browser.");
+    alert("Voice input is not supported in your current browser. Please use Chrome or Edge.");
     return;
   }
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   recognition.lang = 'en-US';
-  recognition.interimResults = false;
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     userInput.value = transcript;
-    sendMessage(); // Automatically send after voice input
+    sendMessage();
   };
 
-  recognition.onerror = () => {
-    alert("Voice recognition failed. Please try typing instead.");
-  };
-
+  recognition.onerror = () => alert("Voice recognition stopped. Try again.");
+  
   recognition.start();
-  alert("🎤 Listening... Speak now");
+  alert("🎤 Listening... Speak now (try saying something)");
 });
 
-// 3. Image Generation Button
+// 3. Image Generation Button (Picture) - FIXED
 imageBtn.addEventListener('click', () => {
-  const prompt = prompt("Describe the image you want MAICHAT to generate:");
-  if (prompt && prompt.trim() !== "") {
-    addMessage(`🖼️ **Generated Image:**<br><em>${prompt}</em><br><br>(Image would appear here in full version)`, false);
+  const userPrompt = prompt("Describe the image you want MAICHAT to generate (e.g. a beautiful sunset in Lagos):");
+  
+  if (userPrompt && userPrompt.trim() !== "") {
+    addMessage(`🖼️ **Image Generated:**<br><em>${userPrompt}</em><br><br>✅ Image would be displayed here in the complete app.`, false);
+  } else {
+    alert("Please describe the image you want to generate.");
   }
 });
 
