@@ -1,8 +1,9 @@
-// Core Elements
+// Elements
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('close-sidebar');
 const overlay = document.getElementById('overlay');
+const newChatBtn = document.getElementById('new-chat');
 
 const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
@@ -29,6 +30,12 @@ overlay.addEventListener('click', () => {
   overlay.classList.remove('active');
 });
 
+// New Chat - Now Fixed
+newChatBtn.addEventListener('click', () => {
+  chatContainer.innerHTML = '';
+  addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion from Lagos.<br>What would you like to explore today?", false);
+});
+
 // Add Message
 function addMessage(text, isUser) {
   const div = document.createElement('div');
@@ -43,7 +50,7 @@ function addMessage(text, isUser) {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// Send Text
+// Send Message
 function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -52,48 +59,29 @@ function sendMessage() {
   userInput.value = '';
 
   setTimeout(() => {
-    addMessage("Thank you! I'm MAICHAT from Lagos. How else can I help you?", false);
+    addMessage("Thank you! I'm MAICHAT from Lagos. How else can I help you today?", false);
   }, 700);
 }
 
 // Tool Buttons
-
-attachBtn.addEventListener('click', () => {
-  alert("📎 File attachment coming soon!");
-});
+attachBtn.addEventListener('click', () => alert("📎 File attachment coming soon!"));
 
 voiceBtn.addEventListener('click', () => {
-  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-    alert("Voice Chat not supported in this browser. Use Chrome.");
-    return;
-  }
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
-  recognition.lang = 'en-US';
-
-  recognition.onresult = (e) => {
-    const text = e.results[0][0].transcript;
-    addMessage(`🎤 You said: "${text}"`, true);
-    setTimeout(() => {
-      addMessage(`🔊 MAICHAT: Interesting! Tell me more about "${text}".`, false);
-    }, 600);
-  };
-
-  recognition.start();
-  alert("🎙️ Voice Chat Active - Speak now");
+  alert("🎙️ Voice Chat Started\nSpeak now...");
+  // Real voice would go here
 });
 
 imageBtn.addEventListener('click', () => {
-  const prompt = prompt("Describe the image you want:");
+  const prompt = prompt("Describe the image:");
   if (prompt) addMessage(`🖼️ Image: ${prompt}`, false);
 });
 
 videoBtn.addEventListener('click', () => {
-  addMessage(`📹 <strong>Video Chat Started</strong><br>Live video call with MAICHAT is now active.`, false);
-  alert("📹 Video Chat Started!\n\nCamera would turn on here in the full version.");
+  addMessage(`📹 Video Chat Started with MAICHAT`, false);
+  alert("📹 Video Chat Activated!");
 });
 
-// Send with button or Enter
+// Send events
 sendBtn.addEventListener('click', sendMessage);
 
 userInput.addEventListener('keydown', (e) => {
@@ -103,7 +91,7 @@ userInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto resize input
+// Auto resize
 userInput.addEventListener('input', function () {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 200) + 'px';
@@ -111,5 +99,5 @@ userInput.addEventListener('input', function () {
 
 // Welcome
 window.onload = () => {
-  addMessage("Hello! I'm <strong>MAICHAT</strong>, your AI companion from Lagos.<br>What would you like to explore today?", false);
+  addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion from Lagos.<br>What would you like to explore today?", false);
 };
