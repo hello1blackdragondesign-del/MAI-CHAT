@@ -17,7 +17,7 @@ const voiceBtn = document.getElementById('voice-btn');
 const imageBtn = document.getElementById('image-btn');
 const videoBtn = document.getElementById('video-btn');
 
-// Hamburger Menu
+// Hamburger
 hamburger.addEventListener('click', () => {
   sidebar.classList.add('open');
   overlay.classList.add('active');
@@ -77,27 +77,31 @@ async function sendMessage() {
       body: JSON.stringify({ message: text })
     });
 
+    if (!response.ok) {
+      throw new Error(`Server responded with status ${response.status}`);
+    }
+
     const data = await response.json();
     typingDiv.remove();
 
     if (data.reply) {
       addMessage(data.reply, false);
     } else {
-      addMessage("Sorry, I couldn't get a response. Please try again.", false);
+      addMessage("Sorry, I couldn't get a response.", false);
     }
 
   } catch (error) {
     typingDiv.remove();
-    addMessage("⚠️ Cannot connect to MAICHAT server. Please try again later.", false);
     console.error(error);
+    addMessage("⚠️ Cannot connect to MAICHAT server.\n\nThe backend might be sleeping. Try again in 10 seconds.", false);
   }
 }
 
 // Tool Buttons
 attachBtn.addEventListener('click', () => alert("📎 File attachment coming soon!"));
-voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat - Speak now"));
+voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat Started - Speak now"));
 imageBtn.addEventListener('click', () => {
-  const prompt = prompt("Describe the image you want:");
+  const prompt = prompt("Describe the image:");
   if (prompt) addMessage(`🖼️ Image: ${prompt}`, false);
 });
 videoBtn.addEventListener('click', () => {
@@ -105,7 +109,7 @@ videoBtn.addEventListener('click', () => {
   alert("📹 Video Chat Activated!");
 });
 
-// Send with button or Enter
+// Send Events
 sendBtn.addEventListener('click', sendMessage);
 
 userInput.addEventListener('keydown', (e) => {
@@ -115,7 +119,7 @@ userInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto resize textarea
+// Auto resize
 userInput.addEventListener('input', function () {
   this.style.height = 'auto';
   this.style.height = Math.min(this.scrollHeight, 200) + 'px';
