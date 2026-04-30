@@ -9,12 +9,10 @@
 </head>
 <body>
   <div class="app">
-    <!-- Hamburger -->
     <button id="hamburger" class="hamburger">
       <i class="fa-solid fa-bars"></i>
     </button>
 
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <div class="logo">
@@ -37,7 +35,6 @@
       </div>
     </div>
 
-    <!-- Main Chat Area -->
     <div class="main">
       <header>
         <div class="header-content">
@@ -45,7 +42,6 @@
             <h1>MAICHAT</h1>
             <div class="subtitle">Advanced AI • Lagos</div>
           </div>
-
           <div class="mode-selector">
             <select id="model-select">
               <option value="thinking" selected>Thinking Mode</option>
@@ -58,27 +54,27 @@
 
       <div id="chat-container" class="chat-container"></div>
 
-      <!-- Input Area - Text on left, tools on right -->
+      <!-- Updated Input: Text on top, icons below -->
       <div class="input-area">
         <div class="input-wrapper">
           <textarea id="user-input" rows="1" placeholder="Message MAICHAT..."></textarea>
-          
-          <div class="tools">
-            <button id="attach-btn" class="tool-btn"><i class="fa-solid fa-paperclip"></i></button>
-            <button id="voice-btn" class="tool-btn"><i class="fa-solid fa-microphone"></i></button>
-            <button id="image-btn" class="tool-btn"><i class="fa-solid fa-image"></i></button>
-            <button id="video-btn" class="tool-btn"><i class="fa-solid fa-video"></i></button>
-            <button id="send-btn" class="send-btn">
-              <i class="fa-solid fa-paper-plane"></i>
-            </button>
-          </div>
         </div>
+        
+        <div class="tools-bar">
+          <button id="attach-btn" class="tool-btn"><i class="fa-solid fa-paperclip"></i></button>
+          <button id="voice-btn" class="tool-btn"><i class="fa-solid fa-microphone"></i></button>
+          <button id="image-btn" class="tool-btn"><i class="fa-solid fa-image"></i></button>
+          <button id="video-btn" class="tool-btn"><i class="fa-solid fa-video"></i></button>
+          <button id="send-btn" class="send-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </div>
+        
         <p class="disclaimer">MAICHAT can make mistakes. Verify important information.</p>
       </div>
     </div>
   </div>
 
-  <!-- Overlay -->
   <div id="overlay" class="overlay"></div>
 
   <script src="script.js"></script>
