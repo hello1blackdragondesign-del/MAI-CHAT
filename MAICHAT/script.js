@@ -1,6 +1,6 @@
-// ================== MAICHAT - Connected to Render Backend ==================
+// ================== MAICHAT - Direct Grok API (Recommended for you) ==================
 
-const BACKEND_URL = "https://maichat-backend.onrender.com";
+const GROK_API_KEY = "xai-SzKZwwuN3YVZvHnoswfPpnYrzBUQNyvTaibL7BKSvxDAh3uiaYRJcb2zuiAvTCsy4sEVG2fdRHVO1oLS";
 
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
@@ -17,7 +17,7 @@ const voiceBtn = document.getElementById('voice-btn');
 const imageBtn = document.getElementById('image-btn');
 const videoBtn = document.getElementById('video-btn');
 
-// Hamburger
+// Hamburger Menu
 hamburger.addEventListener('click', () => {
   sidebar.classList.add('open');
   overlay.classList.add('active');
@@ -53,7 +53,7 @@ function addMessage(text, isUser) {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// Send Message to Render Backend
+// Send Message Directly to Grok API
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -71,45 +71,52 @@ async function sendMessage() {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
-    const response = await fetch(`${BACKEND_URL}/api/chat`, {
+    const response = await fetch("https://api.x.ai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${GROK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "grok-beta",
+        messages: [
+          { 
+            role: "system", 
+            content: "You are MAICHAT, a friendly, warm and intelligent AI companion from Lagos, Nigeria. Be helpful and engaging." 
+          },
+          { role: "user", content: text }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
+      })
     });
-
-    if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
-    }
 
     const data = await response.json();
     typingDiv.remove();
 
-    if (data.reply) {
-      addMessage(data.reply, false);
-    } else {
-      addMessage("Sorry, I couldn't get a response.", false);
-    }
+    const aiReply = data.choices?.[0]?.message?.content || "Sorry, I couldn't respond. Please try again.";
+    addMessage(aiReply, false);
 
   } catch (error) {
     typingDiv.remove();
+    addMessage("⚠️ MAICHAT is currently unavailable. Please check your internet connection.", false);
     console.error(error);
-    addMessage("⚠️ Cannot connect to MAICHAT server.\n\nThe backend might be sleeping. Try again in 10 seconds.", false);
   }
 }
 
 // Tool Buttons
 attachBtn.addEventListener('click', () => alert("📎 File attachment coming soon!"));
-voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat Started - Speak now"));
+voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat - Speak now"));
 imageBtn.addEventListener('click', () => {
-  const prompt = prompt("Describe the image:");
+  const prompt = prompt("Describe the image you want MAICHAT to generate:");
   if (prompt) addMessage(`🖼️ Image: ${prompt}`, false);
 });
 videoBtn.addEventListener('click', () => {
-  addMessage("📹 Video Chat Started", false);
+  addMessage("📹 Video Chat Started with MAICHAT", false);
   alert("📹 Video Chat Activated!");
 });
 
-// Send Events
+// Send with button or Enter
 sendBtn.addEventListener('click', sendMessage);
 
 userInput.addEventListener('keydown', (e) => {
@@ -125,7 +132,7 @@ userInput.addEventListener('input', function () {
   this.style.height = Math.min(this.scrollHeight, 200) + 'px';
 });
 
-// Welcome Message
+// Welcome
 window.onload = () => {
   addMessage("Hello! I'm <strong>MAICHAT</strong>, your advanced AI companion from Lagos.<br>What would you like to explore today?", false);
 };
