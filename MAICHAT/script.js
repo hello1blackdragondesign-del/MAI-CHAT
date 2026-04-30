@@ -1,8 +1,5 @@
 // ================== MAICHAT - Real Grok API ==================
 
-// === API KEY (Hidden from casual view) ===
-const GROK_API_KEY = "xai-hwQk7JzATN7UmT0WM8mjx4kCNvlxXX5lY22jzCxSMmoV9wNvmCvQlj9nXHiKyASoT2BPmzVT5efLwW0N";
-
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('close-sidebar');
