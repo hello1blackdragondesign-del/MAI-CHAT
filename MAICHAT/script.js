@@ -1,6 +1,6 @@
 // ================== MAICHAT - Connected to Render Backend ==================
 
-const BACKEND_URL = "https://maichat-backend.onrender.com";
+const BACKEND_URL = "https://maichat-backend-1.onrender.com";
 
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
