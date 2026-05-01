@@ -1,6 +1,16 @@
-// ================== MAICHAT - Connected to Render Backend ==================
+// ================== MAICHAT - Safe Groq API Version ==================
 
-const BACKEND_URL = "https://maichat-backend-3.onrender.com";
+let GROQ_API_KEY = localStorage.getItem('groq_api_key');
+
+if (!GROQ_API_KEY) {
+  GROQ_API_KEY = prompt("Enter your Groq API key to use MAICHAT:");
+  if (GROQ_API_KEY) {
+    localStorage.setItem('groq_api_key', GROQ_API_KEY);
+    alert("API key saved successfully! You won't be asked again.");
+  } else {
+    alert("API key is required. Please refresh and try again.");
+  }
+}
 
 const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
@@ -17,7 +27,7 @@ const voiceBtn = document.getElementById('voice-btn');
 const imageBtn = document.getElementById('image-btn');
 const videoBtn = document.getElementById('video-btn');
 
-// Hamburger
+// Hamburger Menu
 hamburger.addEventListener('click', () => {
   sidebar.classList.add('open');
   overlay.classList.add('active');
@@ -53,7 +63,7 @@ function addMessage(text, isUser) {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// Send Message to Render Backend
+// Send Message using Groq API
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -71,41 +81,47 @@ async function sendMessage() {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
   try {
-    const response = await fetch(`${BACKEND_URL}/api/chat`, {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "llama3-8b-8192",
+        messages: [
+          { 
+            role: "system", 
+            content: "You are MAICHAT, a friendly, warm and intelligent AI companion from Lagos, Nigeria. Be helpful and engaging." 
+          },
+          { role: "user", content: text }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
+      })
     });
-
-    if (!response.ok) {
-      throw new Error(`Server responded with status ${response.status}`);
-    }
 
     const data = await response.json();
     typingDiv.remove();
 
-    if (data.reply) {
-      addMessage(data.reply, false);
-    } else {
-      addMessage("Sorry, I couldn't get a response.", false);
-    }
+    const aiReply = data.choices?.[0]?.message?.content || "Sorry, I couldn't respond. Please try again.";
+    addMessage(aiReply, false);
 
   } catch (error) {
     typingDiv.remove();
-    console.error(error);
-    addMessage("⚠️ Cannot connect to MAICHAT server.\n\nThe backend might be sleeping. Try again in 10 seconds.", false);
+    addMessage("⚠️ Cannot connect right now. Please check your internet.", false);
   }
 }
 
 // Tool Buttons
 attachBtn.addEventListener('click', () => alert("📎 File attachment coming soon!"));
-voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat Started - Speak now"));
+voiceBtn.addEventListener('click', () => alert("🎙️ Voice Chat - Speak now"));
 imageBtn.addEventListener('click', () => {
-  const prompt = prompt("Describe the image:");
+  const prompt = prompt("Describe the image you want:");
   if (prompt) addMessage(`🖼️ Image: ${prompt}`, false);
 });
 videoBtn.addEventListener('click', () => {
-  addMessage("📹 Video Chat Started", false);
+  addMessage("📹 Video Chat Started with MAICHAT", false);
   alert("📹 Video Chat Activated!");
 });
 
