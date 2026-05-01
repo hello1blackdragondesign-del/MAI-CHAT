@@ -1,14 +1,14 @@
-// ================== MAICHAT - Safe Groq API Version ==================
+// ================== MAICHAT - Safe Version (No Key in Code) ==================
 
 let GROQ_API_KEY = localStorage.getItem('groq_api_key');
 
 if (!GROQ_API_KEY) {
   GROQ_API_KEY = prompt("Enter your Groq API key to use MAICHAT:");
-  if (GROQ_API_KEY) {
+  if (GROQ_API_KEY && GROQ_API_KEY.trim() !== "") {
     localStorage.setItem('groq_api_key', GROQ_API_KEY);
-    alert("API key saved successfully! You won't be asked again.");
+    alert("✅ API key saved successfully! You can now use MAICHAT.");
   } else {
-    alert("API key is required. Please refresh and try again.");
+    alert("API key is required. Please refresh the page and try again.");
   }
 }
 
@@ -63,7 +63,7 @@ function addMessage(text, isUser) {
   chatContainer.scrollTop = chatContainer.scrollHeight;
 }
 
-// Send Message using Groq API
+// Send Message
 async function sendMessage() {
   const text = userInput.value.trim();
   if (!text) return;
@@ -74,7 +74,7 @@ async function sendMessage() {
   const typingDiv = document.createElement('div');
   typingDiv.className = 'message ai';
   typingDiv.innerHTML = `
-    <div class="avatar ai">🧠</div>
+    <div class="avatar ai">🧚</div>
     <div class="bubble">MAICHAT is thinking...</div>
   `;
   chatContainer.appendChild(typingDiv);
@@ -97,7 +97,7 @@ async function sendMessage() {
           { role: "user", content: text }
         ],
         temperature: 0.7,
-        max_tokens: 1000
+        max_tokens: 800
       })
     });
 
